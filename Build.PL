@@ -294,7 +294,11 @@ sub check_gsl_version {
     print "Checking for GSL using gsl-config\n";
 
     my $config_command = 'gsl-config';
-    if ( $^O eq 'MSWin32' ) { $config_command = 'sh C:\STRAWB~1\perl\site\lib\auto\share\dist\Alien-GSL\bin\gsl-config'; }
+    if ( $^O eq 'MSWin32' ) {
+        require Alien::GSL;
+        my $gsl_bin_dir = Alien::GSL->bin_dir();
+        $config_command = 'sh $gsl_bin_dir/gsl-config';
+    }
 
     my $gsl_version = qx{$config_command --version};
     if (not defined $gsl_version) {
@@ -308,9 +312,9 @@ sub check_gsl_version {
 
     chomp($gsl_version);
 
-    chomp(my $gsl_prefix  = qx{$config_command gsl-config --prefix});
-    chomp(my $gsl_cflags  = qx{$config_command gsl-config --cflags});
-    chomp(my $gsl_libs    = qx{$config_command gsl-config --libs});
+    chomp(my $gsl_prefix  = qx{$config_command --prefix});
+    chomp(my $gsl_cflags  = qx{$config_command --cflags});
+    chomp(my $gsl_libs    = qx{$config_command --libs});
 
     my $path_system = catfile(qw/swig system.i/);
 

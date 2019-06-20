@@ -1,0 +1,61 @@
+# NEED UPDATE, CORRELATION #rp038: all changes made to this file MUST be propagated to the corresponding appveyor.yml files for all other RPerl Family software suites 
+# v0.015_000
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: false
+skip_tags: true
+clone_depth: 1
+clone_folder: C:\projects\math-gsl
+
+environment:
+  APPVEYOR_RDP_PASSWORD: math1*
+
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+# This file replaces & expands upon the original AppVeyor test command sequence:
+# AppVeyor.com -> rperl -> Settings -> Test -> Script -> CMD
+# choco install strawberryperl --forceX86 && set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\windows\system32;C:\windows; && gcc -v && g++ -v && perl -V && dmake -V || perl Makefile.PL && perl -e"require CPAN;CPAN::Shell->notest('install','App::cpanminus');" && cpanm -n -v --installdeps . && set RPERL_DEBUG=1 && set RPERL_VERBOSE=1 && dmake test
+
+# DEV NOTE: do not test IO::Socket::SSL, about 50% of the time it hangs on the test after "t/sysread_write.t ................. ok"
+# DEV NOTE: do not test any CPAN dependencies, causes test time to exceed 1 hours AppVeyor maximum
+install:
+- cmd: >-
+
+    choco install curl
+
+    curl -V
+
+    curl -o perl.msi http://strawberryperl.com/download/5.24.0.1/strawberry-perl-5.24.0.1-32bit.msi
+
+    msiexec /i perl.msi /quiet /qn /norestart
+
+    set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\windows\system32;C:\windows;%path%
+
+    gcc -v
+
+    g++ -v
+
+    perl -V
+
+    perl -e"require CPAN;CPAN::Shell->notest('install','App::cpanminus');"
+
+    cpanm --verbose --notest Alien::GSL
+
+    perl Build.PL
+
+    perl Build
+
+    set PERL5LIB=blib/lib
+
+    set
+
+    perl -le "print for @INC"
+
+    dmake test
+build: off
+test: off
+deploy: off
