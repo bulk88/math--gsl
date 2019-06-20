@@ -33,12 +33,14 @@ install:
     curl -V
 
     curl -oProcessExplorer.zip https://download.sysinternals.com/files/ProcessExplorer.zip && unzip ProcessExplorer.zip procexp.exe && move procexp.exe C:\Users\appveyor\Desktop
+    
+    choco install swig
 
     curl -o perl.msi http://strawberryperl.com/download/5.24.0.1/strawberry-perl-5.24.0.1-32bit.msi
 
     msiexec /i perl.msi /quiet /qn /norestart
 
-    set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\windows\system32;C:\windows;%path%;C:\msys64\usr\bin
+    set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\windows\system32;C:\windows;%path%
 
     gcc -v
 

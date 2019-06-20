@@ -33,6 +33,7 @@ my $gsl_conf;
 
 $gsl_conf = check_gsl_version();
 $gsl_conf = check_gsl_version_pkgconfig() if not $gsl_conf;
+print Dumper $gsl_conf;
 
 my ($major,$minor,$tiny) = split /\./, $gsl_conf->{gsl_version};
 my $ccflags = $gsl_conf->{gsl_cflags};
