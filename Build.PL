@@ -297,7 +297,7 @@ sub check_gsl_version {
     if ( $^O eq 'MSWin32' ) {
         require Alien::GSL;
         my $gsl_bin_dir = Alien::GSL->bin_dir();
-        $config_command = 'sh $gsl_bin_dir/gsl-config';
+        $config_command = "sh $gsl_bin_dir/gsl-config";
     }
 
     my $gsl_version = qx{$config_command --version};

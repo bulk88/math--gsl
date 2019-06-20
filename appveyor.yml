@@ -43,7 +43,7 @@ install:
 
     perl -e"require CPAN;CPAN::Shell->notest('install','App::cpanminus');"
 
-    cpanm --verbose --notest Alien::GSL
+    cpanm --notest Alien::GSL
 
     perl Build.PL
 
