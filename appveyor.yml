@@ -52,19 +52,19 @@ install:
 
     cpanm --notest Alien::GSL
     
-    #cpanm --verbose --notest --installdeps .
-    #
-    #perl Build.PL
-    #
-    #perl Build
-    #
-    #set PERL5LIB=blib/lib
-    #
-    #set
-    #
-    #perl -le "print for @INC"
-    #
-    #dmake test
+#cpanm --verbose --notest --installdeps .
+#
+#perl Build.PL
+#
+#perl Build
+#
+#set PERL5LIB=blib/lib
+#
+#set
+#
+#perl -le "print for @INC"
+#
+#dmake test
 build: off
 test: off
 deploy: off
