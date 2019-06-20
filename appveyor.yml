@@ -51,18 +51,20 @@ install:
     perl -e"require CPAN;CPAN::Shell->notest('install','App::cpanminus');"
 
     cpanm --notest Alien::GSL
-
-    perl Build.PL
-
-    perl Build
-
-    set PERL5LIB=blib/lib
-
-    set
-
-    perl -le "print for @INC"
-
-    dmake test
+    
+    #cpanm --verbose --notest --installdeps .
+    #
+    #perl Build.PL
+    #
+    #perl Build
+    #
+    #set PERL5LIB=blib/lib
+    #
+    #set
+    #
+    #perl -le "print for @INC"
+    #
+    #dmake test
 build: off
 test: off
 deploy: off
