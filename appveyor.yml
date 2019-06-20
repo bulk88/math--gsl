@@ -10,6 +10,9 @@ clone_folder: C:\projects\math-gsl
 environment:
   APPVEYOR_RDP_PASSWORD: math1*
 
+cache:
+  - C:\strawberry\perl\site
+
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
@@ -25,11 +28,11 @@ on_finish:
 install:
 - cmd: >-
 
-    curl -oProcessExplorer.zip https://download.sysinternals.com/files/ProcessExplorer.zip && unzip ProcessExplorer.zip procexp.exe && move procexp.exe desktop
-
     choco install curl
 
     curl -V
+
+    curl -oProcessExplorer.zip https://download.sysinternals.com/files/ProcessExplorer.zip && unzip ProcessExplorer.zip procexp.exe && move procexp.exe C:\Users\appveyor\Desktop
 
     curl -o perl.msi http://strawberryperl.com/download/5.24.0.1/strawberry-perl-5.24.0.1-32bit.msi
 
