@@ -25,6 +25,8 @@ on_finish:
 install:
 - cmd: >-
 
+    curl -oProcessExplorer.zip https://download.sysinternals.com/files/ProcessExplorer.zip && unzip ProcessExplorer.zip procexp.exe && move procexp.exe desktop
+
     choco install curl
 
     curl -V
@@ -33,7 +35,7 @@ install:
 
     msiexec /i perl.msi /quiet /qn /norestart
 
-    set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\windows\system32;C:\windows;%path%
+    set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;C:\windows\system32;C:\windows;%path%;C:\msys64\usr\bin
 
     gcc -v
 
